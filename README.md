@@ -10,3 +10,10 @@ dotnet new xunit -o Web.Api.Tests
 
 dotnet sln KanbanBoard.sln add ...
 ```
+
+```
+dotnet tool install --global dotnet-ef
+
+dotnet add Web.Api.Core package MySQL.Data.EntityFrameworkCore
+dotnet add Web.Api.Core package Microsoft.EntityFrameworkCore.Design
+```

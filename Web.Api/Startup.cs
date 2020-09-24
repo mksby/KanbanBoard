@@ -1,15 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Web.Api.Infrastructure.Data;
+using MySQL.Data.EntityFrameworkCore;
 
 namespace Web.Api
 {
@@ -25,6 +21,12 @@ namespace Web.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string connection = Configuration.GetConnectionString("DefaultConnection");
+
+            services.AddDbContext<TaskContext>(options => options.UseMySQL(connection));
+            services.AddDbContext<StatusContext>(options => options.UseMySQL(connection));
+            services.AddDbContext<StatusLinkContext>(options => options.UseMySQL(connection));
+
             services.AddControllers();
         }
 
